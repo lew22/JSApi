@@ -1,6 +1,7 @@
 
 //traer rutas
 const routes = require('./routes/iroutes')
+const cors = require('cors')
 
 console.log("holAAAA")
 require('dotenv').config()
@@ -11,6 +12,10 @@ const express = require('express')
 
 const app = express()
 app.use(express.json())
+
+//cors
+app.use(cors())
+
 
 //ajustes
 app.set('PORT',PORT)
