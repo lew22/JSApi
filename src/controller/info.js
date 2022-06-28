@@ -1,7 +1,5 @@
 
-const { json } = require('express')
-const { send } = require('process')
-const { stringify } = require('querystring')
+
 const infos = require('../db/info')
 const Info = require('../models/Info')
 
@@ -16,15 +14,14 @@ const createInfo = (req,res) =>{
         message:"Info creada",
         statusCode : 201
     })
-    // nombre:`${newInfo.nombre}`,
-    // apellido:`${newInfo.apellido}`,
-    // opcion:`${newInfo.opc}`
-    // infosend.append("nombre")
-    // datos.append(newInfo.nombre)
 
+    //convertir a cadena de texto
+    data = req.body
+    //console.log(data)
+    //console.log(JSON.stringify(data, null, 5));
+    //JSON.parse(data)
 
-
-    //socket    // console.log("Conectando a servidor...")
+    //socket
     var net = require('net');
     var port = 8001
     var host='localhost'
@@ -32,17 +29,13 @@ const createInfo = (req,res) =>{
 
     //buffer
     let buf
-    bnombre = newInfo.nombre
-    bapellido = newInfo.apellido
-    bopcion = newInfo.opcion
-    btotal = "{"+"nombre:"+bnombre+","+"apellido:"+bapellido+","+"opcion:"+bopcion+"}"
+    buf = Buffer.from(JSON.stringify(data),'utf-8')
 
-    buf = Buffer.from(btotal,'utf-8')
-    console.log(buf.toString())
 
+    console.log("Conectando a servidor...")
     socket.connect(port, host, () => {
         socket.write(buf);
-        // console.log(buf)
+        //console.log(buf)
     });
     
     socket.on('data', data => {
