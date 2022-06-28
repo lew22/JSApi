@@ -1,6 +1,6 @@
 
 const config={
-    PORT: process.env.PORT
+    PORT: process.env.PORT=8001
 
 }
 

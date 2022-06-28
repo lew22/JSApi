@@ -67,9 +67,70 @@ const getInfo = (req,res) =>{
     })
 }
 
+const deleteInfo = (req, res) => {
+    const namePerson = req.params.nombre
+    
+    function findInfo(singleInfo) {
+        return singleInfo.nombre == namePerson
+    }
+    
+    const infoToDelete =infos.find(findInfo)
+    const indice = infos.indexOf(infoToDelete)
+    infos.splice(indice, 1)
+
+
+    res.status(200).json({
+        data: infoToDelete,
+        message:`Info elimidada con nombre ${namePerson}`,
+        statusCode:200
+    })
+
+    ////logica buffer
+
+
+
+    ///////////////
+    
+}
+
+
+const putInfo = (req, res) => {
+    const namePerson = req.params.nombre
+    
+    ///encontrar info e indice
+    function findInfo(singleInfo) {
+        return singleInfo.nombre == namePerson
+    }
+    const infoToUpdate =infos.find(findInfo)
+    const indexToUpdate = infos.indexOf(infoToUpdate)
+
+
+    ///nuevos datos para info
+    const {nombre,apellido,opcion} = req.body
+    const newInfo = new Info(nombre,apellido,opcion)
+    
+    infos.splice(indexToUpdate, 1, newInfo)
+
+    res.status(200).json({
+        //data: newInfo,
+        message:`Info actualizada de ${namePerson} a {nombre: ${newInfo.nombre}, apellido: ${newInfo.apellido},opcion: ${newInfo.opcion}}`,
+        statusCode:200
+    })
+
+
+
+    ////logica buffer
+
+
+
+
+    //////////
+}
 
 module.exports = {
     createInfo,
-    getInfo
+    getInfo,
+    deleteInfo,
+    putInfo
 }
 
