@@ -5,7 +5,7 @@ const Info = require('../models/Info')
 
 const createInfo = (req,res) =>{
     const {nombre,apellido,opcion} = req.body
-    const newInfo = new Info(nombre,apellido,opcion)
+    const newInfo = new Info(nombre,apellido,opcion,'POST')
     infos.push(newInfo)
     //res.send('Info creada')
 
@@ -16,7 +16,8 @@ const createInfo = (req,res) =>{
     })
 
     //convertir a cadena de texto
-    data = req.body
+    //data = req.body
+    data = newInfo
     //console.log(data)
     //console.log(JSON.stringify(data, null, 5));
     //JSON.parse(data)
@@ -72,7 +73,7 @@ const deleteInfo = (req, res) => {
     const indice = infos.indexOf(infoToDelete)
     infos.splice(indice, 1)
 
-
+    infoToDelete.metodo = 'DELETE'
     res.status(200).json({
         data: infoToDelete,
         message:`Info elimidada con nombre ${namePerson}`,
@@ -81,7 +82,8 @@ const deleteInfo = (req, res) => {
 
     ////logica buffer
     //convertir a cadena de texto
-    data = req.body
+    //data = req.body
+    data = infoToDelete
 
     //socket
     var net = require('net');
@@ -128,12 +130,12 @@ const putInfo = (req, res) => {
 
     ///nuevos datos para info
     const {nombre,apellido,opcion} = req.body
-    const newInfo = new Info(nombre,apellido,opcion)
+    const newInfo = new Info(nombre,apellido,opcion,'PUT')
     
     infos.splice(indexToUpdate, 1, newInfo)
 
     res.status(200).json({
-        //data: newInfo,
+        data: newInfo,
         message:`Info actualizada de ${namePerson} a {nombre: ${newInfo.nombre}, apellido: ${newInfo.apellido},opcion: ${newInfo.opcion}}`,
         statusCode:200
     })
@@ -142,7 +144,8 @@ const putInfo = (req, res) => {
 
     ////logica buffer
     //convertir a cadena de texto
-    data = req.body
+    //data = req.body
+    data = newInfo
 
     //socket
     var net = require('net');
