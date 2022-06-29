@@ -62,6 +62,7 @@ const getInfo = (req,res) =>{
 
 const deleteInfo = (req, res) => {
     const namePerson = req.params.nombre
+    const {nombre,apellido,opcion,metodo} = req.body
     
     function findInfo(singleInfo) {
         return singleInfo.nombre == namePerson
@@ -79,7 +80,34 @@ const deleteInfo = (req, res) => {
     })
 
     ////logica buffer
+    //convertir a cadena de texto
+    data = req.body
 
+    //socket
+    var net = require('net');
+    var port = 8001
+    var host='localhost'
+    let socket = new net.Socket();
+
+    //buffer
+    let buf
+    buf = Buffer.from(JSON.stringify(data),'utf-8')
+
+
+    console.log("Conectando a servidor...")
+    socket.connect(port, host, () => {
+        socket.write(buf);
+        //console.log(buf)
+    });
+
+    socket.on('data', data => {
+        console.log(`${data}`);
+    });
+    
+    socket.on('close', () => {
+        socket.destroy();
+    });
+    console.log("Conectado a sevidor y mensaje enviado")
 
 
     ///////////////
@@ -113,7 +141,34 @@ const putInfo = (req, res) => {
 
 
     ////logica buffer
+    //convertir a cadena de texto
+    data = req.body
 
+    //socket
+    var net = require('net');
+    var port = 8001
+    var host='localhost'
+    let socket = new net.Socket();
+
+    //buffer
+    let buf
+    buf = Buffer.from(JSON.stringify(data),'utf-8')
+
+
+    console.log("Conectando a servidor...")
+    socket.connect(port, host, () => {
+        socket.write(buf);
+        //console.log(buf)
+    });
+
+    socket.on('data', data => {
+        console.log(`${data}`);
+    });
+    
+    socket.on('close', () => {
+        socket.destroy();
+    });
+    console.log("Conectado a sevidor y mensaje enviado")
 
 
 
