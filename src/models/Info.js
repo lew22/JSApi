@@ -1,10 +1,9 @@
 
 class Info{
-    constructor(nombre,apellido,opcion,metodo){
-        this.nombre=nombre
-        this.apellido=apellido
-        this.opcion=opcion
-        this.metodo=metodo
+    constructor(cmd,sender,data){
+        this.cmd=cmd
+        this.sender=sender
+        this.data=data
     }
 
 }
